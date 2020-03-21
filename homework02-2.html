@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Buy tickets online!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <style type="text/css">
+        .font {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mytitle {
+            color: #F5F5F5;
+            text-align: center;
+            background-image: url('https://www.moma.org/d/p/sa/CT_KALINA_NEWMOMA_006.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 450px;
+            height: 450px;
+            border-radius: 450px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wrap {
+            width: 450px;
+            margin: 50px auto 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .one {
+            width: 600px;
+            margin: 10px auto 10px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: left;
+        }
+
+        .two {
+            width: 600px;
+            margin: 20px auto 0px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function order() {
+            let name = $('#order_name').val();
+            let count = $('#order_count').val();
+            let address = $('#order_add1').val();
+            let address2 = $('#order_add2').val();
+            let phone = $('#order_phone').val();
+
+            if (name == '') {
+                alert('Name must be filled out')
+                $('#order_name').focus()
+                return
+            } else if (count == '') {
+                alert('Please select')
+                $('#order_count').focus()
+                return
+            } else if (address == '') {
+                alert('Address 1 must be filled out')
+                $('#order_add1').focus()
+            } else if (address2 == '') {
+                alert('Address 2 must be filled out')
+                $('#order_add2').focus()
+                return
+            } else if (phone == '') {
+                alert('Phone number must be filled out')
+                $('#order_phone').focus()
+                return
+
+            }
+    </script>
+</head>
+
+<body>
+    <div class="font">
+        <div class="wrap">
+            <link
+                href="https://fonts.googleapis.com/css?family=Inter|Nanum+Gothic|Nanum+Pen+Script|Noto+Sans+KR&display=swap"
+                rel="stylesheet">
+            <div class="mytitle">
+                <h1>Museum Of Modern Art</h1>
+                <h6>BeyondBehind</h6>
+            </div>
+        </div class="wrap">
+
+        <div class="two">
+            <p>
+                <span style="font-size :25px; font-weight:bold">Tickets to MOMA </span> Price: $15 (student: $10)
+                <br>
+                The Museum of Modern Art is an art museum located in Midtown Manhattan, New York City, on 53rd Street
+                between Fifth and Sixth Avenues. It plays a major role in developing and collecting modern art, and is
+                often
+                identified as one of the largest and most influential museums of modern art in the world.
+            </p>
+        </div>
+
+
+
+        <div class="one">
+            <h2>Enter your information</h2>
+            <div class="input-group mb-3">
+                <input id="order_name" type="text" class="form-control" placeholder="Enter your full name"
+                    aria-label="Enter your full name" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+
+                </div>
+            </div>
+            <p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    <select id="order_count" class="custom-select">
+                        <option selected>Please select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3(Maximum)</option>
+                    </select>
+                </div>
+            </p>
+            <div class="input-group mb-3">
+                <input id="order_add1" type="text" class="form-control" placeholder="Address 1" aria-label="Address 1"
+                    aria-describedby="basic-addon2">
+                <input id="order_add2" type="text" class="form-control" placeholder="Address 2" aria-label="Address 2"
+                    aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                </div>
+            </div>
+
+
+            <p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input id="order_phone" type="text" class="form-control" placeholder="Phone number"
+                        aria-label="Phone number" aria-describedby="basic-addon2">
+            </p>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <div class="two">
+        <button onclick="order()" type="button" class="btn btn-outline-secondary">NEXT</button>
+    </div>
+
+</body>
+
+</html>

@@ -2,18 +2,15 @@
 <html lang="en">
 
 <head>
-    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   
+
     <title>Buy tickets online!</title>
-   
-   
-   <style>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+
+    <style>
         .font {
-            font-family: 'Noto Sans KR', sans-serif;
-            font-family: 'Nanum Gothic', sans-serif;
-            font-family: 'Nanum Pen Script', cursive;
             font-family: 'Inter', sans-serif;
         }
 
@@ -60,13 +57,47 @@
             justify-content: center;
             text-align: center;
         }
+
+        /* if(select.options[select.selectedIndex].value == "none"){
+             alert("Select one of the options");
+       } */
     </style>
+    <script>
+        function order() {
+            var x = document.getElementById("name").value;
+            if (x == "") {
+                alert('name must be filled out');
+                return false;
+            }
+            // var y = document.getElementById("tickets").value;
+            // if (y == "") {
+            //     alert('Please select..');
+            // return false;}
+            // 이게 왜 안될까요 ㅜㅜ
+            var z = document.getElementById("add1").value;
+            if (z == "") {
+                alert('address 1 must be filled out');
+                return false;
+            }
+            var q = document.getElementById("add2").value;
+            if (q == "") {
+                alert('address 2 must be filled out');
+                return false;
+            }
+            var t = document.getElementById("phone").value;
+            if (t == "") {
+                alert('phone number must be filled out');
+                return false;
+            }
+        }
+    </script>
 </head>
 
 <body>
     <div class="font">
         <div class="wrap">
             <link
+                href="https://fonts.googleapis.com/css?family=Inter|Nanum+Gothic|Nanum+Pen+Script|Noto+Sans+KR&display=swap"
                 href="https://fonts.googleapis.com/css?family=Inter|Nanum+Gothic|Nanum+Pen+Script|Noto+Sans+KR&display=swap"
                 rel="stylesheet">
             <div class="mytitle">
@@ -76,10 +107,9 @@
         </div class="wrap">
 
         <div class="two">
-            <form class="form-inline">
-                <h2 class="title">Tickets to MOMA </h2> Price: $15 (student: $10)
-            </form>
             <p>
+                <span style="font-size :25px; font-weight:bold">Tickets to MOMA </span> Price: $15 (student: $10)
+                <br>
                 The Museum of Modern Art is an art museum located in Midtown Manhattan, New York City, on 53rd Street
                 between Fifth and Sixth Avenues. It plays a major role in developing and collecting modern art, and is
                 often
@@ -92,8 +122,29 @@
         <div class="one">
             <h2>Enter your information</h2>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Enter your full name"
+                <input id="name" type="text" class="form-control" placeholder="Enter your full name"
                     aria-label="Enter your full name" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+
+                </div>
+            </div>
+            <p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    <select id="tickets" class="custom-select">
+                        <option selected>Please select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3(Maximum)</option>
+                    </select>
+                </div>
+            </p>
+            <div class="input-group mb-3">
+                <input id="add1" type="text" class="form-control" placeholder="Address 1" aria-label="Address 1"
+                    aria-describedby="basic-addon2">
+                <input id="add2" type="text" class="form-control" placeholder="Address 2" aria-label="Address 2"
+                    aria-describedby="basic-addon2">
                 <div class="input-group-append">
                 </div>
             </div>
@@ -101,56 +152,16 @@
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                     </div>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>Adult</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3(Maximum)</option>
-                    </select>
-                    <select class="custom-select" id="inputGroupSelect02">
-                        <option selected>Student</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3(Maximum)</option>
-                    </select>
+                    <input id="phone" type="text" class="form-control" placeholder="Phone number" aria-label="Phone number"
+                        aria-describedby="basic-addon2">
                 </div>
             </p>
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Address 1" aria-label="Address 1"
-                    aria-describedby="basic-addon2">
-                <input type="text" class="form-control" placeholder="Address 2" aria-label="Address 2"
-                    aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                </div>
-            </div>
-            <p>
-                <select class="custom-select" id="inputGroupSelect01">
-                    <option selected>City</option>
-                    <option value="1">Seoul</option>
-                    <option value="2">Newyork</option>
-                    <option value="3">Dublin</option>
-                </select>
-            </p>
-
-
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                </div>
-                <select class="custom-select" id="inputGroupSelect01">
-                    <option selected>Choose your country</option>
-                    <option value="1">+82</option>
-                    <option value="2">718</option>
-                    <option value="3">080</option>
-                </select>
-                <input type="text" class="form-control" placeholder="Phone number" aria-label="Phone number"
-                    aria-describedby="basic-addon2">
-            </div>
         </div>
     </div>
     </div>
 
     <div class="two">
-        <button type="button" class="btn btn-outline-secondary">NEXT</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="order()">NEXT</button>
     </div>
 
 </body>
