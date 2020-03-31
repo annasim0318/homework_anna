@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Webpage Title -->
+    <title>Buy tickets online!</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Inter|Nanum+Gothic|Nanum+Pen+Script|Noto+Sans+KR&display=swap"
+        href="https://fonts.googleapis.com/css?family=Inter|Nanum+Gothic|Nanum+Pen+Script|Noto+Sans+KR&display=swap"
+        rel="stylesheet">
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#orders-box').html('');
+            listing();
+        });
+
+        function isCellPhone(p) {
+        var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})[-][0-9]{3,4}[-][0-9]{4}$/;
+        return regExp.test(p);
+      }
+
+        function make_order() {
+            let name = $('#name').val();
+            let count = $('#count').val();
+            let address1 = $('#address1').val();
+            let address2 = $('#address2').val();
+            let phone_number = $('#phone_number').val();
+
+
+            if (name == '') {
+                alert('Name must be filled');
+                $('#name').focus();
+                return;
+            } else if (count == '') {
+                alert('Please count...');
+                $('#count').focus();
+                return;
+            } else if (address1 == '') {
+                alert('address1 must be filled');
+                $('#address1').focus();
+                return;
+            } else if (address2 == '') {
+                alert('address2 must be filled');
+                $('#address2').focus();
+                return;
+            } else if (phone_number == '') {
+                alert('phone number must be filled');
+                $('#phone_number').focus();
+                return;
+            } else if (!isCellPhone(phone_number)) {
+          alert('wrong format! \n ex)010-0000-0000')
+          return
+        }
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/orders",
+                data: { name_give: name, count_give: count, address1_give: address1, address2_give: address2, phone_number_give: phone_number },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert(response['msg']);
+                        $('#name').val('');
+                        $('#count').val('');
+                        $('#address1').val('');
+                        $('#address2').val('');
+                        $('#phone_number').val('');
+                        window.location.reload();
+                    }
+                }
+            })
+        
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "/orders",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        let orders = response['orders'];
+                        for (let i = 0; i < orders.length; i++) {
+                            make_card(orders[i]['name'], orders[i]['count'], orders[i]['address1'], orders[i]['address2'], orders[i]['phone_number']);
+                        }
+                    } else {
+                        alert('Order unsuccessful');
+                    }
+                }
+            })
+        }
+
+        function make_card(name, count, address1, address2, phone_number) {
+            let temp_html = '<tr>\
+                                <td>'+ name + '</td>\
+                                <td>'+ count + '</td>\
+                                <td>'+ address1 + '</td>\
+                                <td>'+ address2 + '</td>\
+                                <td>'+ phone_number + '</td>\
+                            </tr>';
+            $('#orders-box').append(temp_html);
+        }
+
+
+
+    </script>
+
+    <style type="text/css">
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .wrap {
+            width: 600px;
+            margin: 20px auto 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img {
+            color: #F5F5F5;
+            text-align: center;
+            background-image: url('https://www.moma.org/d/p/sa/CT_KALINA_NEWMOMA_006.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 450px;
+            height: 450px;
+            border-radius: 450px;
+            /* ?---질문? border-radius 말고 이미지 전체를 동그라미로 크롭할 수 있는 툴은 아주 저세상 코드겠죠? */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info_head {
+            width: 600px;
+            margin: 10px auto 10px auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info {
+            width: 450px;
+            margin: 10px auto 10px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            justify-content: left;
+        }
+
+        .order {
+            text-align: center;
+        }
+
+        .orders {
+            width: 450px;
+            margin: 30px auto 10px auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <div class="img">
+            <h2>Museum Of Modern Art</h2>
+            <h6>BeyondBehind</h6>
+            <!-- ?---질문? 위 두개 항은 폰트가 적용이 안되는데 왜일까요? -->
+        </div>
+        <div class="info_head">
+            <h3 style="font-weight:bold">Tickets to MOMA </h3> Price: $15
+            <br>
+            The Museum of Modern Art is an art museum located in Midtown Manhattan, New York City, on 53rd Street
+            between Fifth and Sixth Avenues. It plays a major role in developing and collecting modern art, and is
+            often
+            identified as one of the largest and most influential museums of modern art in the world.
+        </div>
+        <div class="info">
+            <h4 style="font-weight:bold">Enter your information</h4>
+            <div class="input-group mb-3">
+                <input id="name" type="text" class="form-control" placeholder="Enter your full name"
+                    aria-label="Enter your full name" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                </div>
+            </div>
+            <p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    <select id="count" class="custom-select">
+                        <option selected value>Please select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3(Maximum)</option>
+                    </select>
+                </div>
+            </p>
+            <div class="input-group mb-3">
+                <input id="address1" type="text" class="form-control" placeholder="Address 1" aria-label="Address 1"
+                    aria-describedby="basic-addon2">
+                <input id="address2" type="text" class="form-control" placeholder="Address 2" aria-label="Address 2"
+                    aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                </div>
+            </div>
+            <p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input id="phone_number" type="text" class="form-control" placeholder="Phone number"
+                        aria-label="Phone number" aria-describedby="basic-addon2">
+                </div>
+            </p>
+        </div>
+        <div class="order">
+            <button onclick="make_order()" type="button" class="btn btn-dark">Order</button>
+        </div>
+    </div>
+    <div class="orders">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Number of Tickets</th>
+                    <th scope="col">Address1</th>
+                    <th scope="col">Address2</th>
+                    <th scope="col">Phone Number</th>
+                </tr>
+            </thead>
+            <tbody id="orders-box">
+                <tr>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <!-- ?---질문? 부트스트랩 쓰는건 알겠지만 혹시 otto @mdo 왜 쓰는걸까요? 인터넷에 찾아보니 관련인물같던데요! -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+
+</body>
+
+</html>
